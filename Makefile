@@ -14,3 +14,16 @@ OBJ = $(SRCS:.c=.o)
 $(NAME): $(OBJ)
 	gcc $(CFLAGS) -c $(SRCS)
 	ar rc $(NAME) $(OBJ)
+
+all: $(NAME)
+
+clean:
+	rm -f $(NAME)
+	rm -f $(OFILES)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
+
+.PHONY: all, clean, fclean, re
