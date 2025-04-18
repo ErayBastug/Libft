@@ -3,122 +3,83 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: erbastug <eray.bastug@hotmail.com>         +#+  +:+       +#+        */
+/*   By: erbastug <erbastug@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/11 14:16:43 by erbastug          #+#    #+#             */
-/*   Updated: 2024/11/12 15:51:45 by erbastug         ###   ########.fr       */
+/*   Created: 2024/11/13 22:11:58 by erbastug          #+#    #+#             */
+/*   Updated: 2024/11/15 07:59:43 by erbastug         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
+#include "libft.h"
 #include <stdlib.h>
 
-int word_counter(const char *s, char c)
-{
-	int i;
-	int word;
-
-	i = 0;
-	word = 0;
-	while(s[i])
-	{
-		if(s[i] == c)
-			i++;
-		else
-		{
-			word++;
-			while(s[i] && s[i] != c)
-				i++;
-		}
-	}
-	return (word);
-}
-
-void word_print(char *word, const char *s, int i, int word_len)
-{
-	int a;
-
-	a = 0;
-	while (word_len > 0)
-	{
-		word[a] = s[i - word_len];
-		a++;
-		word_len--;
-	}
-	word[a] = '\0';
-}
-
-char 	**free_array(char **ptr, int i)
-{
-	while (i > 0)
-	{
-		i--;
-		free(ptr[i]);
-	}
-	free(ptr);
-	return (0);
-}
-
-char	**ft_split_words(char const *s, char c, char **s2, int num_words)
+static char	**ft_free(char **arr, int size)
 {
 	int	i;
-	int	word;
-	int	word_len;
 
 	i = 0;
-	word = 0;
-	word_len = 0;
-	while (word < num_words)
+	while (i < size)
 	{
-		while (s[i] && s[i] == c)
-			i++;
-		while (s[i] && s[i] != c)
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
+	return (NULL);
+}
+
+static int	count_words(const char *str, char sep)
+{
+	int	i;
+
+	i = 0;
+	while (*str)
+	{
+		if (*str == sep)
+			str++;
+		else
 		{
 			i++;
-			word_len++;
+			while (*str && *str != sep)
+				str++;
 		}
-		s2[word] = (char *)malloc(sizeof(char) * (word_len + 1));
-		if (!s2)
-			return	(free_array(s2, word));
-		word_print(s2[word], s, i, word_len);
-		word_len = 0;
-		word++;
 	}
-	s2[word] = 0;
-	return (s2);
+	return (i);
 }
 
-char **ft_split(const char *s, char c)
+static int	word_len(const char *str, char sep)
 {
-	char **s2;
-	int num_word;
+	int	len;
 
-	if (s == NULL)
-		return (0);
-	num_word = word_counter(s, c);
-	s2 = (char **)malloc(sizeof(char *) * (num_word + 1));
-	if (s2 == NULL)
-		return (0);
-	s2 = ft_split_words(s, c, s2, num_word);
-	return (s2);
+	len = 0;
+	while (str[len] && str[len] != sep)
+		len++;
+	return (len);
 }
 
-
-
-int main()
+char	**ft_split(char const *s, char c)
 {
-    char **result;
-    char *str = "Hello World! This is a test string.";
-    int i = 0;
+	char	**arr;
+	int		i;
+	int		word_count;
 
-    result = ft_split(str, ' ');
-    while (result[i] != NULL)
-    {
-        printf("Word %d: %s\n", i, result[i]);
-        free(result[i]);  // Her bir kelimeyi serbest bırakıyoruz.
-        i++;
-    }
-    free(result);  // Son olarak, s2 dizisini serbest bırakıyoruz.
-
-    return 0;
+	if (!s)
+		return (NULL);
+	word_count = count_words(s, c);
+	arr = (char **)malloc((word_count + 1) * sizeof(char *));
+	if (!arr)
+		return (NULL);
+	i = 0;
+	while (i < word_count)
+	{
+		while (*s == c)
+			s++;
+		arr[i] = (char *)malloc((word_len(s, c) + 1) * sizeof(char));
+		if (!arr[i])
+			return (ft_free(arr, i));
+		ft_strlcpy(arr[i], s, word_len(s, c) + 1);
+		s += word_len(s, c);
+		i++;
+	}
+	arr[i] = NULL;
+	return (arr);
 }
