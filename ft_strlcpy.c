@@ -1,16 +1,30 @@
-int ft_strlcpy(char *dest, const char *src, int size)
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: erbastug <erbastug@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/15 02:46:07 by erbastug          #+#    #+#             */
+/*   Updated: 2024/11/15 08:43:10 by erbastug         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <sys/_types/_size_t.h>
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
-	int i;
+	size_t	i;
 
 	i = 0;
-	if (size != 0)
+	if (dstsize > 0)
 	{
-		while (i < size - 1 && src[i])
+		while (i < dstsize - 1 && src[i])
 		{
-			dest[i] = src[i];
+			dst[i] = src[i];
 			i++;
 		}
-		dest[i] = '\0';
+		dst[i] = '\0';
 	}
 	i = 0;
 	while (src[i])
