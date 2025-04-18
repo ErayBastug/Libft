@@ -1,4 +1,18 @@
-void	*ft_memset(void *b, int c, int len)
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: erbastug <erbastug@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/15 02:21:55 by erbastug          #+#    #+#             */
+/*   Updated: 2024/11/15 03:09:13 by erbastug         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <sys/_types/_size_t.h>
+
+void	*ft_memset(void *b, int c, size_t len)
 {
 	unsigned char	*p;
 
@@ -10,13 +24,4 @@ void	*ft_memset(void *b, int c, int len)
 		len--;
 	}
 	return (b);
-}
-
-#include <stdio.h>
-
-int main()
-{
-	char array[] = "eray";
-	printf("%s\n", ft_memset(array, 'a', sizeof(array)));
-	printf("%lu\n",sizeof(array));
 }
