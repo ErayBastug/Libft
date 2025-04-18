@@ -11,19 +11,17 @@ SRCS = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c \
 		ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c
 OBJ = $(SRCS:.c=.o)
 
-$(NAME): $(OBJ)
-	gcc $(CFLAGS) -c $(SRCS)
-	ar rc $(NAME) $(OBJ)
-
 all: $(NAME)
 
+$(NAME): $(OBJ)
+	ar rc $(NAME) $(OBJ)
+
 clean:
-	rm -f $(NAME)
-	rm -f $(OFILES)
+	rm -f $(OBJ)
 
 fclean: clean
 	rm -f $(NAME)
 
 re: fclean all
 
-.PHONY: all, clean, fclean, re
+.PHONY: all clean fclean re
