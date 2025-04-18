@@ -1,18 +1,35 @@
-void	*ft_memmove(void *dst, const void *src, int n)
-{
-	char	*d;
-	char	*s;
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: erbastug <erbastug@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/27 16:49:45 by erbastug          #+#    #+#             */
+/*   Updated: 2024/11/15 03:08:41 by erbastug         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-	d = (char *)dst;
-	s = (char *)src;
+#include "libft.h"
+#include <sys/_types/_null.h>
+
+void	*ft_memmove(void *dst, const void *src, size_t len)
+{
+	unsigned char	*d;
+	unsigned char	*s;
+
+	d = (unsigned char *)dst;
+	s = (unsigned char *)src;
+	if (!dst && !src)
+		return (NULL);
 	if (s > d)
-		ft_memmove(dst, src, n);
+		ft_memcpy(dst, src, len);
 	else if (s < d)
 	{
-		while (n > 0)
+		while (len > 0)
 		{
-			d[n - 1] = s[n - 1];
-			n--;
+			d[len - 1] = s[len - 1];
+			len--;
 		}
 	}
 	return (dst);
