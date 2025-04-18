@@ -1,11 +1,25 @@
-void	ft_bzero(void *s, int n)
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: erbastug <erbastug@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/15 02:18:52 by erbastug          #+#    #+#             */
+/*   Updated: 2024/11/15 03:04:18 by erbastug         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <sys/_types/_size_t.h>
+
+void	ft_bzero(void *s, size_t n)
 {
 	unsigned char	*p;
 
 	p = (unsigned char *)s;
 	while (n > 0)
 	{
-		*p = '0';
+		*p = '\0';
 		p++;
 		n--;
 	}
